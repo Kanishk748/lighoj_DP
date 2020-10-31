@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int unsigned long long
+
+int jadoo(int n, int k)
+{
+	int res = 1;
+	if (k > n - k)
+		k = n - k;
+
+	for (int i = 0; i < k; ++i) {
+		res *= (n - i);
+		res /= (i + 1);
+	}
+
+	return res;
+}
+
+int32_t main()
+{
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	for (int T = 1; T <= t; T++)
+	{
+		int n, k;
+		cin >> n >> k;
+		int ans = 0;
+		if (n >= k) {
+
+			ans = jadoo(n, k);
+			ans *= ans;
+			int prod = 1;
+			for (int i = 2; i <= k; i++)prod *= i;
+			ans *= prod;
+		}
+		cout << "Case " << T << ": " << ans << endl;
+	}
+	return 0;
+}
