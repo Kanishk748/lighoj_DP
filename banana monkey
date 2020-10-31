@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int> a[205];
+
+int get(int i, int j)
+{
+	if (j < 0 || j >= a[i].size())return 0;
+	else return a[i][j];
+}
+
+int bottomup(int n)
+{
+
+	for (int i = 1; i < (2 * n - 1); i++)
+	{
+		if (i < n)
+		{
+			for (int j = 0; j < i + 1; j++)
+			{
+				a[i][j] += max(get(i - 1, j), get(i - 1, j - 1));
+			}
+		}
+		else
+		{
+			for (int j = 0; j < 2 * n - (i + 1); j++)
+			{
+				a[i][j] += max(get(i - 1, j), get(i - 1, j + 1));
+			}
+		}
+	}
+	return a[2 * n - 2][0];
+}
+
+int32_t main()
+{
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	for (int T = 1; T <= t; T++)
+	{
+		int n; cin >> n;
+		for (int i = 0; i < 205; i++)a[i].clear();
+		int ele;
+		for (int i = 0; i < (2 * n - 1); i++)
+		{
+			if (i < n)
+			{
+				for (int j = 0; j < i + 1; j++)
+				{
+					cin >> ele;
+					a[i].push_back(ele);
+				}
+			}
+			else
+			{
+				for (int j = 0; j < 2 * n - (i + 1); j++)
+				{
+					cin >> ele;
+					a[i].push_back(ele);
+				}
+			}
+		}
+		int ans = bottomup(n);
+		cout << "Case " << T << ": " << ans << endl;
+	}
+	return 0;
+}
